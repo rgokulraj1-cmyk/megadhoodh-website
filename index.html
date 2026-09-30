@@ -26,6 +26,11 @@ footer{background:#040c1c;color:#aebbd2;padding:28px 0;text-align:center;font-si
 .mobile-menu{display:none}
 @media(max-width:850px){nav{display:none}.mobile-menu{display:block}.hero-grid,.split,.contact-grid{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.feature-grid{grid-template-columns:1fr 1fr}.hero{padding:65px 0}}
 @media(max-width:560px){.grid,.feature-grid{grid-template-columns:1fr}.plan.featured{transform:none}section{padding:55px 0}.nav{height:64px}.logo{font-size:18px}}
+
+/* Chatbot */
+.chatbot-launcher{position:fixed;right:22px;bottom:22px;width:60px;height:60px;border:0;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;font-size:27px;box-shadow:0 12px 30px rgba(7,87,217,.32);cursor:pointer;z-index:100;display:flex;align-items:center;justify-content:center}.chatbot-launcher:hover{transform:translateY(-2px)}
+.chatbot{position:fixed;right:22px;bottom:92px;width:360px;max-width:calc(100vw - 30px);background:#fff;border-radius:18px;box-shadow:0 20px 55px rgba(7,21,47,.22);overflow:hidden;z-index:101;border:1px solid #e1e7f1;display:none}.chatbot.open{display:block}.chat-head{background:linear-gradient(135deg,#07152f,#0757d9);color:#fff;padding:16px 18px;display:flex;align-items:center;justify-content:space-between}.chat-head strong{display:block;font-size:16px}.chat-head small{color:#cfe1ff}.chat-close{background:transparent;border:0;color:#fff;font-size:23px;cursor:pointer}.chat-body{height:330px;overflow:auto;padding:15px;background:#f6f9ff}.chat-msg{max-width:88%;padding:10px 12px;border-radius:14px;margin:7px 0;font-size:14px;line-height:1.45}.chat-msg.bot{background:#fff;border:1px solid #e1e7f1;border-top-left-radius:5px}.chat-msg.user{background:#0757d9;color:#fff;margin-left:auto;border-top-right-radius:5px}.chat-options{display:flex;flex-wrap:wrap;gap:7px;padding:10px 12px;background:#fff;border-top:1px solid #e8edf5}.chat-option{border:1px solid #cddaf0;background:#fff;color:#0757d9;border-radius:18px;padding:7px 10px;font-size:12px;font-weight:700;cursor:pointer}.chat-option:hover{background:#eef4ff}.chat-input{display:flex;gap:7px;padding:10px;background:#fff;border-top:1px solid #e8edf5}.chat-input input{margin:0;padding:10px 11px}.chat-send{border:0;background:#0757d9;color:#fff;border-radius:9px;padding:0 14px;font-weight:800;cursor:pointer}.chat-wa{display:block;text-align:center;margin:0 12px 12px;padding:10px;border-radius:10px;background:#19a95b;color:#fff;font-weight:800;font-size:13px}
+@media(max-width:560px){.chatbot{right:10px;bottom:82px;width:calc(100vw - 20px)}.chatbot-launcher{right:14px;bottom:14px}}
 </style>
 </head>
 <body>
@@ -89,5 +94,21 @@ function sendWhatsApp(e){
  window.open(`https://wa.me/919443069779?text=${text}`,'_blank');
 }
 </script>
+
+<!-- SKY Fibernet Chatbot -->
+<button class="chatbot-launcher" id="chatbotLauncher" aria-label="Open SKY Fibernet chatbot" title="Chat with us">💬</button>
+<div class="chatbot" id="chatbot" aria-hidden="true">
+  <div class="chat-head"><div><strong>SKY Assistant</strong><small>Megadhoodh Cable Network • SKY Fibernet</small></div><button class="chat-close" id="chatClose" aria-label="Close chatbot">×</button></div>
+  <div class="chat-body" id="chatBody"><div class="chat-msg bot">Hi! 👋 I’m the SKY Assistant. I can help with internet plans, OTT, new connections and support.</div></div>
+  <div class="chat-options">
+    <button class="chat-option" data-q="plans">Internet Plans</button>
+    <button class="chat-option" data-q="ott">OTT Details</button>
+    <button class="chat-option" data-q="connection">New Connection</button>
+    <button class="chat-option" data-q="cable">Cable TV</button>
+    <button class="chat-option" data-q="contact">Contact Support</button>
+  </div>
+  <div class="chat-input"><input id="chatInput" type="text" placeholder="Type your question..." aria-label="Chat message"><button class="chat-send" id="chatSend">Send</button></div>
+  <a class="chat-wa" href="https://wa.me/919443069779?text=Hi%20SKY%20Fibernet,%20I%20need%20assistance." target="_blank" rel="noopener">💬 Chat with us on WhatsApp</a>
+</div>
 </body>
 </html>
