@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Website Visual Editor | Megadhoodh + SKY Fibernet</title>
+<style>
+:root{font-family:Inter,Arial,sans-serif;color:#18233b;background:#edf1f7}
+*{box-sizing:border-box}body{margin:0}.top{background:#07152f;color:white;padding:16px 20px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}.top h1{font-size:18px;margin:0}.top p{margin:4px 0 0;color:#c8d5ee;font-size:12px}.actions{display:flex;gap:8px;flex-wrap:wrap}button,.upload{border:0;border-radius:8px;padding:10px 13px;font-weight:700;cursor:pointer;background:#e8eef9;color:#132345;font-size:13px}button.primary{background:#08a9df;color:#fff}button.active{background:#f5b4d4;color:#7e124c}.layout{display:grid;grid-template-columns:270px minmax(0,1fr);gap:14px;padding:14px;height:calc(100vh - 83px)}aside{background:white;border:1px solid #dce3ee;border-radius:12px;padding:16px;overflow:auto}aside h2{font-size:15px;margin:0 0 8px}aside p{font-size:12px;color:#64718a;line-height:1.5}.field{margin:14px 0}.field label{display:block;font-size:12px;font-weight:700;margin-bottom:6px}.field input[type=color]{width:100%;height:38px;border:1px solid #dce3ee;border-radius:7px;background:#fff;padding:3px}.field input[type=file]{font-size:12px;width:100%}.help{padding:10px;background:#f2f7ff;border-radius:8px;font-size:12px;line-height:1.5}.preview{background:#dce3ee;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;min-width:0}.previewbar{padding:9px 12px;background:#fff;display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:12px;color:#53627c}.framewrap{flex:1;min-height:0}.framewrap iframe{width:100%;height:100%;border:0;background:white}.status{font-size:12px;color:#53627c}@media(max-width:850px){.layout{height:auto;grid-template-columns:1fr}.preview{height:72vh}aside{overflow:visible}}
+</style>
+</head>
+<body>
+<header class="top"><div><h1>Megadhoodh + SKY Fibernet — Visual Editor</h1><p>Edit a preview, then download your updated website files.</p></div><div class="actions"><button id="editBtn" class="primary">Enable click-to-edit</button><button id="saveDraft">Save draft here</button><button id="download" class="primary">Download edited HTML</button></div></header>
+<div class="layout">
+<aside>
+<h2>Website appearance</h2>
+<p>Click “Enable click-to-edit”, then click text in the preview to change it. Your existing plans and WhatsApp number are preserved unless you edit them.</p>
+<div class="field"><label for="blue">Primary blue</label><input id="blue" type="color" value="#0757d9"></div>
+<div class="field"><label for="cyan">SKY cyan</label><input id="cyan" type="color" value="#08b7e8"></div>
+<div class="field"><label for="pink">SKY pink</label><input id="pink" type="color" value="#e52b8c"></div>
+<div class="field"><label for="dark">Dark background</label><input id="dark" type="color" value="#07152f"></div>
+<hr>
+<h2>Replace logos</h2>
+<div class="field"><label for="megaLogo">Megadhoodh Cable Network logo</label><input id="megaLogo" type="file" accept="image/*"></div>
+<div class="field"><label for="skyLogo">SKY Fibernet logo</label><input id="skyLogo" type="file" accept="image/*"></div>
+<div class="help"><b>How publishing works</b><br>1. Download edited HTML.<br>2. In GitHub, open your repository and upload/replace <code>index.html</code>.<br>3. Commit changes. GitHub Pages will redeploy automatically.<br><br>Keep your logo PNG files as backup. This editor embeds replaced logos in the downloaded HTML.</div>
+<div class="field"><button id="reset" style="width:100%">Reload original website</button></div>
+<div id="status" class="status">Loading website…</div>
+</aside>
+<section class="preview">
+<div class="previewbar"><span>Live preview</span><span>Desktop / mobile responsive</span></div>
+<div class="framewrap"><iframe id="site" title="Website preview"></iframe></div>
+</section>
+</div>
+<script>
+const frame=document.getElementById('site');
+const statusEl=document.getElementById('status');
+const editBtn=document.getElementById('editBtn');
+let originalHtml='', editing=false;
+const storageKey='megadhoodh-visual-editor-draft-v1';
+function say(s){statusEl.textContent=s}
+function injectRuntime(html){
+ const runtime = `<script id="visual-editor-runtime">
+ let __visualEdit=false;
+ document.addEventListener('click',function(ev){
+   if(!__visualEdit)return;
+   const el=ev.target.closest('h1,h2,h3,h4,p,span,strong,a,button,label,li,div.badge');
+   if(!el || el.closest('form')) { if(el && el.closest('form')) ev.preventDefault(); return; }
+   ev.preventDefault(); ev.stopPropagation();
+   el.setAttribute('contenteditable','true'); el.focus();
+   el.style.outline='2px dashed #08a9df';
+   el.addEventListener('blur',()=>{el.removeAttribute('contenteditable');el.style.outline='';},{once:true});
+ },true);
+ window.addEventListener('message',function(ev){
+  const d=ev.data||{};
+  if(d.type==='toggle-edit'){__visualEdit=!!d.value;document.body.style.cursor=__visualEdit?'text':'';}
+  if(d.type==='color'){document.documentElement.style.setProperty(d.name,d.value);}
+  if(d.type==='logo'){document.querySelectorAll('img').forEach(img=>{if((d.brand==='mega'&&/megadhoodhlogo\\.png/i.test(img.getAttribute('src')||''))||(d.brand==='sky'&&/skylogo\\.png/i.test(img.getAttribute('src')||''))){img.src=d.data;}});const fav=document.querySelector('link[rel="icon"]');if(fav&&d.brand==='mega')fav.href=d.data;}
+ });
+ </script>`;
+ return html.replace('</body>',runtime+'</body>');
+}
+function render(html){frame.srcdoc=injectRuntime(html);say('Preview ready.');}
+async function loadOriginal(){
+ try{
+  const response=await fetch('./index.html?editorload='+Date.now(),{cache:'no-store'});
+  if(!response.ok)throw new Error('Could not load index.html');
+  originalHtml=await response.text();
+  const draft=localStorage.getItem(storageKey);
+  render(draft||originalHtml);
+  if(draft)say('Loaded saved draft from this browser.');
+ }catch(e){say('Open editor.html from the same folder as index.html, or use a local web server.');}
+}
+function send(data){if(frame.contentWindow)frame.contentWindow.postMessage(data,'*');}
+editBtn.addEventListener('click',()=>{editing=!editing;editBtn.classList.toggle('active',editing);editBtn.textContent=editing?'Click-to-edit is ON':'Enable click-to-edit';send({type:'toggle-edit',value:editing});});
+[['blue','--blue'],['cyan','--cyan'],['pink','--pink'],['dark','--dark']].forEach(([id,name])=>{
+ document.getElementById(id).addEventListener('input',e=>send({type:'color',name,value:e.target.value}));
+});
+function readImage(input,brand){
+ const file=input.files&&input.files[0];if(!file)return;
+ const reader=new FileReader();
+ reader.onload=()=>{send({type:'logo',brand,data:reader.result});say(file.name+' applied to preview.');};
+ reader.readAsDataURL(file);
+}
+document.getElementById('megaLogo').addEventListener('change',e=>readImage(e.target,'mega'));
+document.getElementById('skyLogo').addEventListener('change',e=>readImage(e.target,'sky'));
+function getExportHtml(){
+ const doc=frame.contentDocument;
+ const clone=doc.documentElement.cloneNode(true);
+ clone.querySelectorAll('#visual-editor-runtime').forEach(el=>el.remove());
+ clone.querySelectorAll('[contenteditable]').forEach(el=>el.removeAttribute('contenteditable'));
+ clone.querySelectorAll('*').forEach(el=>{el.style.removeProperty('outline');});
+ // Pull current style variables back into the original stylesheet.
+ const styles=clone.querySelectorAll('style');
+ if(styles.length){
+  const rootStyle=doc.documentElement;
+  const vars={'--blue':rootStyle.style.getPropertyValue('--blue'),'--cyan':rootStyle.style.getPropertyValue('--cyan'),'--pink':rootStyle.style.getPropertyValue('--pink'),'--dark':rootStyle.style.getPropertyValue('--dark')};
+  styles[0].textContent=styles[0].textContent.replace(/:root\{[^}]*\}/,m=>m.replace(/--blue:[^;]+;/,'--blue:'+vars['--blue'].trim()+';').replace(/--cyan:[^;]+;/,'--cyan:'+vars['--cyan'].trim()+';').replace(/--pink:[^;]+;/,'--pink:'+vars['--pink'].trim()+';').replace(/--dark:[^;]+;/,'--dark:'+vars['--dark'].trim()+';'));
+ }
+ return '<!DOCTYPE html>\n'+clone.outerHTML;
+}
+document.getElementById('download').addEventListener('click',()=>{
+ try{const blob=new Blob([getExportHtml()],{type:'text/html;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='index.html';a.click();URL.revokeObjectURL(url);say('Downloaded index.html. Upload it to GitHub to publish.');}
+ catch(e){say('Could not export. Click outside the text you are editing, then try again.');}
+});
+document.getElementById('saveDraft').addEventListener('click',()=>{
+ try{localStorage.setItem(storageKey,getExportHtml());say('Draft saved in this browser only. It is not live until published on GitHub.');}
+ catch(e){say('Draft could not be saved. Try downloading the edited HTML instead.');}
+});
+document.getElementById('reset').addEventListener('click',()=>{if(confirm('Reload the original website and discard the saved draft?')){localStorage.removeItem(storageKey);editing=false;editBtn.classList.remove('active');editBtn.textContent='Enable click-to-edit';render(originalHtml);}});
+frame.addEventListener('load',()=>{if(editing)send({type:'toggle-edit',value:true});});
+loadOriginal();
+</script>
+</body>
+</html>
