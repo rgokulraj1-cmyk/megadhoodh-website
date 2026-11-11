@@ -25,8 +25,9 @@ section{padding:78px 0}.section-head{text-align:center;margin-bottom:40px}.secti
 .contact{background:#07152f;color:white}.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:35px}.contact p{color:#c8d5ee}.form{background:white;padding:28px;border-radius:18px;color:var(--text)}input,textarea,select{width:100%;padding:13px;margin:7px 0 14px;border:1px solid #d8e0ed;border-radius:9px;font:inherit}textarea{min-height:110px;resize:vertical}
 footer{background:#040c1c;color:#aebbd2;padding:28px 0;text-align:center;font-size:13px}.footer-logos{display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:16px}.footer-logo{width:135px;height:55px;object-fit:contain;background:#fff;border-radius:10px;padding:5px}
 .mobile-menu{display:none}
-@media(max-width:850px){nav{display:none}.mobile-menu{display:block}.hero-grid,.split,.contact-grid{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.feature-grid{grid-template-columns:1fr 1fr}.hero{padding:65px 0}}
-@media(max-width:560px){.grid,.feature-grid{grid-template-columns:1fr}.plan.featured{transform:none}section{padding:55px 0}.nav{height:64px}.brand-logo{width:145px;height:52px}.hero-logo{width:155px}.brand-logo-card{width:155px;height:78px}.footer-logo{width:120px;height:50px}.logo{font-size:18px}}
+.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:850px){nav{display:none}.mobile-menu{display:block}.hero-grid,.split,.contact-grid{grid-template-columns:1fr}.grid,.g3{grid-template-columns:1fr 1fr}.feature-grid{grid-template-columns:1fr 1fr}.hero{padding:65px 0}}
+@media(max-width:560px){.grid,.g3,.feature-grid{grid-template-columns:1fr}.plan.featured{transform:none}section{padding:55px 0}.nav{height:64px}.brand-logo{width:145px;height:52px}.hero-logo{width:155px}.brand-logo-card{width:155px;height:78px}.footer-logo{width:120px;height:50px}.logo{font-size:18px}}
 </style>
 </head>
 <body>
@@ -45,26 +46,34 @@ footer{background:#040c1c;color:#aebbd2;padding:28px 0;text-align:center;font-si
 <div class="hero-actions"><a class="btn" href="#plans">View Internet Plans</a><a class="btn alt" href="#contact">Request a Connection</a></div>
 </div>
 <div class="hero-card"><img class="hero-logo" src="skylogo.png" alt="SKY Fibernet"><h3>SKY Fibernet Plans</h3>
-<div><span>20 Mbps</span><strong>₹399 + GST</strong></div>
-<div><span>50 Mbps</span><strong>₹499 + GST</strong></div>
-<div><span>100 Mbps</span><strong>₹599 + GST</strong></div>
-<div><span>100 Mbps + OTT</span><strong>₹999 + GST</strong></div>
+<div><span>50 Mbps</span><strong>₹399 + GST</strong></div>
+<div><span>100 Mbps</span><strong>₹499 + GST</strong></div>
+<div><span>200 Mbps</span><strong>₹599 + GST</strong></div>
+<div><span>50 Mbps + OTT</span><strong>₹649 + GST</strong></div>
+<div><span>100 Mbps + OTT</span><strong>₹749 + GST</strong></div>
+<div><span>200 Mbps + OTT</span><strong>₹849 + GST</strong></div>
 </div>
 </div></section>
 
 <section id="plans"><div class="container">
 <div class="section-head"><img src="skylogo.png" alt="SKY Fibernet" style="width:190px;height:105px;object-fit:contain;margin:0 auto 10px;display:block"><h2>SKY Fibernet Plans</h2><p>Choose the speed that fits your home, work and entertainment needs.</p></div>
-<div class="grid">
-<div class="plan"><h3>Basic</h3><div class="speed">20 Mbps</div><div class="price">₹399 + GST</div><p class="muted">Everyday browsing, social media and streaming.</p></div>
-<div class="plan"><h3>Standard</h3><div class="speed">50 Mbps</div><div class="price">₹499 + GST</div><p class="muted">A balanced connection for connected homes.</p></div>
-<div class="plan featured"><span class="tag">POPULAR</span><h3>Premium</h3><div class="speed">100 Mbps</div><div class="price">₹599 + GST</div><p class="muted">High-speed connectivity for multiple devices.</p></div>
-<div class="plan ott"><span class="tag">OTT</span><h3>Premium OTT</h3><div class="speed">100 Mbps</div><div class="price">₹999 + GST</div><p class="muted">High-speed internet with OTT options available on request.</p><ul class="ott-list"><li>SUN NXT</li><li>Aha Tamil</li><li>Prime Video</li><li>ZEE5</li><li>Sony LIV</li></ul><small>Netflix excluded.</small></div>
+<div class="grid g3">
+<div class="plan"><h3>Basic</h3><div class="speed">50 Mbps</div><div class="price">₹399 + GST</div><p class="muted">Everyday browsing, social media and streaming.</p></div>
+<div class="plan featured"><span class="tag">POPULAR</span><h3>Standard</h3><div class="speed">100 Mbps</div><div class="price">₹499 + GST</div><p class="muted">High-speed connectivity for multiple devices.</p></div>
+<div class="plan"><h3>Premium</h3><div class="speed">200 Mbps</div><div class="price">₹599 + GST</div><p class="muted">Ultra-fast speeds for heavy streaming, work and large families.</p></div>
 </div>
+<div class="section-head" style="margin:56px 0 28px"><h2>Plans with OTT</h2><p>Internet plus your favourite OTT apps.</p></div>
+<div class="grid g3">
+<div class="plan ott"><span class="tag">OTT</span><h3>Basic OTT</h3><div class="speed">50 Mbps</div><div class="price">₹649 + GST</div><p class="muted">50 Mbps internet with OTT options available on request.</p></div>
+<div class="plan ott"><span class="tag">OTT</span><h3>Standard OTT</h3><div class="speed">100 Mbps</div><div class="price">₹749 + GST</div><p class="muted">100 Mbps internet with OTT options available on request.</p></div>
+<div class="plan ott"><span class="tag">OTT</span><h3>Premium OTT</h3><div class="speed">200 Mbps</div><div class="price">₹849 + GST</div><p class="muted">200 Mbps internet with OTT options available on request.</p></div>
+</div>
+<p class="muted" style="text-align:center;margin-top:22px"><strong>OTT available on request:</strong> SUN NXT, Aha Tamil, Prime Video, ZEE5, Sony LIV. Netflix excluded.</p>
 </div></section>
 
 <section class="features"><div class="container"><div class="section-head"><h2>Why Choose Us?</h2><p>Local service with connectivity built for modern homes.</p></div>
 <div class="feature-grid"><div class="feature"><div class="icon">📺</div><h3>Cable TV</h3><p>Digital cable entertainment from Megadhoodh Cable Network.</p></div>
-<div class="feature"><div class="icon">🌐</div><h3>Fast Internet</h3><p>SKY Fibernet broadband plans from 20 Mbps to 100 Mbps.</p></div>
+<div class="feature"><div class="icon">🌐</div><h3>Fast Internet</h3><p>SKY Fibernet broadband plans from 50 Mbps to 200 Mbps.</p></div>
 <div class="feature"><div class="icon">🛠️</div><h3>Local Support</h3><p>Contact our local team for new connections and service assistance.</p></div></div>
 </div></section>
 
