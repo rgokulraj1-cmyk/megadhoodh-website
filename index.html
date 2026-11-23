@@ -20,14 +20,17 @@ h1{font-size:clamp(38px,6vw,68px);line-height:1.04;margin:18px 0}.hero p{font-si
 .hero-logo{width:190px;max-height:105px;object-fit:contain;background:#fff;border-radius:14px;padding:8px;margin-bottom:10px}.hero-card{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:28px;border-radius:22px;backdrop-filter:blur(8px)}.hero-card h3{margin-top:0}.hero-card div{display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.18);padding:12px 0}.hero-card div:last-child{border:0}
 section{padding:78px 0}.section-head{text-align:center;margin-bottom:40px}.section-head h2{font-size:36px;margin:0 0 8px}.section-head p{color:#68748b}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.plan{border:1px solid #e1e7f1;border-radius:18px;padding:26px;background:white;box-shadow:0 10px 28px rgba(20,48,95,.07);position:relative}.plan.featured{border:2px solid var(--blue);transform:translateY(-5px)}.tag{position:absolute;right:16px;top:16px;background:#eaf1ff;color:var(--blue);padding:5px 9px;border-radius:20px;font-size:11px;font-weight:800}.speed{font-size:31px;font-weight:900;color:var(--blue);margin-top:10px}.price{font-size:22px;font-weight:800;margin:10px 0}.muted{color:#68748b;font-size:14px}.ott{background:linear-gradient(135deg,#fff2f8,#f2f7ff)}.ott-list{font-size:14px;padding-left:18px}
+/* ===== 5 internet plans: 3 cards in row one, remaining 2 centered in row two ===== */
+.plans-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:18px}
+.plans-grid .plan{flex:0 1 calc((100% - 36px)/3);min-width:0}
 .features{background:var(--light)}.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.feature{background:#fff;border-radius:16px;padding:24px;border:1px solid #e3e9f4}.icon{font-size:30px}.feature h3{margin:10px 0 5px}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:24px}.brand-logo-card{width:180px;height:92px;object-fit:contain;object-position:left center;background:#fff;border-radius:14px;padding:8px;margin-bottom:14px}.brand-card{padding:34px;border-radius:22px;color:#fff;min-height:240px;background:linear-gradient(135deg,#0b49b5,#06a7df)}.brand-card.pink{background:linear-gradient(135deg,#8d1766,#e52b8c)}.brand-card h3{font-size:29px;margin:8px 0}.brand-card p{color:#eef7ff}
 .contact{background:#07152f;color:white}.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:35px}.contact p{color:#c8d5ee}.form{background:white;padding:28px;border-radius:18px;color:var(--text)}input,textarea,select{width:100%;padding:13px;margin:7px 0 14px;border:1px solid #d8e0ed;border-radius:9px;font:inherit}textarea{min-height:110px;resize:vertical}
 footer{background:#040c1c;color:#aebbd2;padding:28px 0;text-align:center;font-size:13px}.footer-logos{display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:16px}.footer-logo{width:135px;height:55px;object-fit:contain;background:#fff;border-radius:10px;padding:5px}
 .mobile-menu{display:none}
 .g3{grid-template-columns:repeat(3,1fr)}
-@media(max-width:850px){nav{display:none}.mobile-menu{display:block}.hero-grid,.split,.contact-grid{grid-template-columns:1fr}.grid,.g3{grid-template-columns:1fr 1fr}.feature-grid{grid-template-columns:1fr 1fr}.hero{padding:65px 0}}
-@media(max-width:560px){.grid,.g3,.feature-grid{grid-template-columns:1fr}.plan.featured{transform:none}section{padding:55px 0}.nav{height:64px}.brand-logo{width:145px;height:52px}.hero-logo{width:155px}.brand-logo-card{width:155px;height:78px}.footer-logo{width:120px;height:50px}.logo{font-size:18px}}
+@media(max-width:850px){nav{display:none}.mobile-menu{display:block}.hero-grid,.split,.contact-grid{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.feature-grid{grid-template-columns:1fr 1fr}.plans-grid .plan{flex-basis:calc((100% - 18px)/2)}.hero{padding:65px 0}}
+@media(max-width:560px){.grid,.g3,.feature-grid{grid-template-columns:1fr}.plans-grid .plan{flex-basis:100%}.plan.featured{transform:none}section{padding:55px 0}.nav{height:64px}.brand-logo{width:145px;height:52px}.hero-logo{width:155px}.brand-logo-card{width:155px;height:78px}.footer-logo{width:120px;height:50px}.logo{font-size:18px}}
 </style>
 </head>
 <body>
@@ -36,12 +39,12 @@ footer{background:#040c1c;color:#aebbd2;padding:28px 0;text-align:center;font-si
 <nav><a href="#home">Home</a><a href="#cable">Cable TV</a><a href="#plans">SKY Fibernet</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
 <a class="btn" href="#contact">New Connection</a>
 </div></header>
-
 <main>
 <section class="hero" id="home"><div class="container hero-grid">
 <div>
 <span class="badge">Cable TV • Broadband • Local Service</span>
-<h1>Connected to your home.<br>Connected to your world.</h1>
+<h1>Connected to your home.
+Connected to your world.</h1>
 <p><strong>Megadhoodh Cable Network</strong> for Cable TV and <strong>SKY Fibernet</strong> for fast, reliable internet connectivity.</p>
 <div class="hero-actions"><a class="btn" href="#plans">View Internet Plans</a><a class="btn alt" href="#contact">Request a Connection</a></div>
 </div>
@@ -55,21 +58,20 @@ footer{background:#040c1c;color:#aebbd2;padding:28px 0;text-align:center;font-si
 <div><span>50 Mbps + OTT</span><strong>₹649 + GST</strong></div>
 <div><span>100 Mbps + OTT</span><strong>₹749 + GST</strong></div>
 <div><span>200 Mbps + OTT</span><strong>₹849 + GST</strong></div>
-<div>All Plans Are Unlimited</strong></div>
+<div><strong>All Plans Are Unlimited</strong></div>
 </div>
 </div></section>
-
 <section id="plans"><div class="container">
 <div class="section-head"><img src="skylogo.png" alt="SKY Fibernet" style="width:180px;height:95px;object-fit:contain;margin:0 auto 10px;display:block"><h2>SKY Fibernet Plans</h2><p>Choose the speed that fits your home, work and entertainment needs.</p></div>
-<div class="grid g2">
+<div class="plans-grid">
 <div class="plan"><h3>Starter</h3><div class="speed">20 Mbps UL</div><div class="price">₹299 + GST</div><p class="muted">Everyday browsing and Surfing.</p></div>
 <div class="plan"><h3>Basic</h3><div class="speed">50 Mbps UL</div><div class="price">₹399 + GST</div><p class="muted">Everyday browsing, social media and streaming.</p></div>
 <div class="plan featured"><span class="tag">POPULAR</span><h3>Standard</h3><div class="speed">100 Mbps UL</div><div class="price">₹499 + GST</div><p class="muted">High-speed connectivity for multiple devices.</p></div>
 <div class="plan"><h3>Premium</h3><div class="speed">200 Mbps UL</div><div class="price">₹599 + GST</div><p class="muted">Ultra-fast speeds for heavy streaming, work and large families.</p></div>
 <div class="plan"><h3>Ultra</h3><div class="speed">300 Mbps UL</div><div class="price">₹699 + GST</div><p class="muted">Blazing speeds for Gaming and Lag Free Streaming.</p></div>
 </div>
-<div class="section-head" style="margin:56px 0 28px"><h2>Plans with OTT</h2><p><strong>Unlimited Internet plus your favourite OTT apps.</p></div>
-<div class="grid g2">
+<div class="section-head" style="margin:56px 0 28px"><h2>Plans with OTT</h2><p><strong>Unlimited Internet plus your favourite OTT apps.</strong></p></div>
+<div class="grid">
 <div class="plan ott"><span class="tag">OTT</span><h3>Starter OTT</h3><div class="speed">20 Mbps UL</div><div class="price">₹449 + GST</div><p class="muted">20 Mbps internet with OTT options available on request.</p></div>
 <div class="plan ott"><span class="tag">OTT</span><h3>Basic OTT</h3><div class="speed">50 Mbps UL</div><div class="price">₹649 + GST</div><p class="muted">50 Mbps internet with OTT options available on request.</p></div>
 <div class="plan ott"><span class="tag">OTT</span><h3>Standard OTT</h3><div class="speed">100 Mbps UL</div><div class="price">₹749 + GST</div><p class="muted">100 Mbps internet with OTT options available on request.</p></div>
@@ -77,22 +79,20 @@ footer{background:#040c1c;color:#aebbd2;padding:28px 0;text-align:center;font-si
 </div>
 <p class="muted" style="text-align:center;margin-top:22px"><strong>OTTs available</strong> Jio Hotstar, Amazon Prime, ZEE5, Sony LIV, SUN NXT, AHA + 10 Other OTT Platforms</p>
 </div></section>
-
 <section class="features"><div class="container"><div class="section-head"><h2>Why Choose Us?</h2><p>Local service with connectivity built for modern homes.</p></div>
 <div class="feature-grid"><div class="feature"><div class="icon">📺</div><h3>Cable TV</h3><p>Digital cable entertainment from Megadhoodh Cable Network.</p></div>
 <div class="feature"><div class="icon">🌐</div><h3>Fast Internet</h3><p>SKY Fibernet broadband plans from 20 Mbps to 1 Gbps.</p></div>
 <div class="feature"><div class="icon">🛠️</div><h3>Local Support</h3><p>Contact our local team for new connections and service assistance.</p></div></div>
 </div></section>
-
 <section id="cable"><div class="container"><div class="section-head"><h2>One Local Network. Two Services.</h2></div>
 <div class="split"><div class="brand-card"><img class="brand-logo-card" src="megadhoodhlogo.png" alt="Megadhoodh Cable Network"><h3>Megadhoodh Cable Network</h3><p>Reliable local cable television service for homes and families.</p><a class="btn alt" href="#contact">Get Cable Connection</a></div>
 <div class="brand-card pink"><img class="brand-logo-card" src="skylogo.png" alt="SKY Fibernet"><h3>SKY Fibernet</h3><p>High-speed broadband plans for streaming, work, study and connected homes.</p><a class="btn alt" href="#plans">Explore Plans</a></div></div>
 </div></section>
-
 <section id="about" class="features"><div class="container"><div class="section-head"><h2>About Megadhoodh</h2><p>Serving local homes with Cable TV and Internet connectivity.</p></div>
 <div style="max-width:800px;margin:auto;text-align:center"><p>Megadhoodh Cable Network brings Cable TV services together with SKY Fibernet broadband, giving customers a convenient local connection for entertainment and internet needs.</p></div></div></section>
-
-<section class="contact" id="contact"><div class="container contact-grid"><div><h2>Need a New Connection?</h2><p>Send us your details and our team can contact you regarding Cable TV or SKY Fibernet.</p><p><strong>Services</strong><br>📺 Megadhoodh Cable Network<br>🌐 SKY Fibernet</p></div>
+<section class="contact" id="contact"><div class="container contact-grid"><div><h2>Need a New Connection?</h2><p>Send us your details and our team can contact you regarding Cable TV or SKY Fibernet.</p><p><strong>Services</strong>
+📺 Megadhoodh Cable Network
+🌐 SKY Fibernet</p></div>
 <form class="form" onsubmit="sendWhatsApp(event)"><h3>Connection Enquiry</h3><label>Name</label><input id="name" required placeholder="Your name"><label>Mobile Number</label><input id="phone" required type="tel" placeholder="Your mobile number"><label>Service</label><select id="service"><option>SKY Fibernet</option><option>Megadhoodh Cable TV</option><option>Both Cable TV & Internet</option></select><label>Message</label><textarea id="message" placeholder="Plan / area / requirements"></textarea><button class="btn" type="submit">Send Enquiry</button></form>
 </div></section>
 </main>
